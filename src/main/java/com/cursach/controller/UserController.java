@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -20,14 +21,18 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping
-    public String registration() {
+    @GetMapping("/registration")
+    public String registration(Model model) {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registration(User user) {
-        userService.add(user);
-        return "redirect:/login";
+    public String registration(Model model, User user) {
+        if(userService.add(user)) {
+            return "redirect:/login";
+        }
+        else {
+           return registration(model.addAttribute("message", "No"));
+        }
     }
 }

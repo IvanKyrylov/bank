@@ -60,16 +60,21 @@ public class UserServiceImp implements UserDetailsService, UserService{
 
     @Transactional
     @Override
-    public void add(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreateTime(new Timestamp(new Date().getTime()));
-        user.setEnabled(true);
-        Authorities authorities = new Authorities();
-        authorities.setAuthority("ROLE_USER");
-        authorities.setName(user.getUsername());
-        authorities.setUser(user);
-        userDao.add(user);
-        authoritiesDao.add(authorities);
+    public boolean add(User user) {
+        if (userDao.findUserByUsername(user.getUsername()) == null || !userDao.findUserByUsername(user.getUsername()).getUsername().equals(user.getUsername())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setCreateTime(new Timestamp(new Date().getTime()));
+            user.setEnabled(true);
+            Authorities authorities = new Authorities();
+            authorities.setAuthority("ROLE_USER");
+            authorities.setName(user.getUsername());
+            authorities.setUser(user);
+            userDao.add(user);
+            authoritiesDao.add(authorities);
+            return true;
+        }else return false;
+
+        //хуйня переделать
     }
 
     @Transactional

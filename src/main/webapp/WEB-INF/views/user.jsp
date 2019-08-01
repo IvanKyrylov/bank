@@ -17,6 +17,7 @@
 <table>
     <tr>
         <th>id</th>
+        <th>username</th>
         <th>email</th>
         <th>password</th>
         <th>create time</th>
@@ -25,6 +26,7 @@
     <c:forEach var="user" items="${userList}">
         <tr>
             <td>${user.id}</td>
+            <td>${user.username}</td>
             <td>${user.email}</td>
             <td>${user.password}</td>
             <td>${user.createTime}</td>

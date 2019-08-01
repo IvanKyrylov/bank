@@ -20,9 +20,12 @@
 <h1>Bank</h1>
 <h4>Registration</h4>
 
+<p>${message}</p>
+
 <form action='<spring:url value="/registration"/>' method="post">
     <table>
         <tr>
+
             <td>Username</td>
             <td><input type="text" name="username"></td>
         </tr>

@@ -110,27 +110,6 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return enabled == user.enabled &&
-                Objects.equals(id, user.id) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(createTime, user.createTime) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(authorities, user.authorities) &&
-                Objects.equals(creditAccounts, user.creditAccounts) &&
-                Objects.equals(depositAccounts, user.depositAccounts);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, email, createTime, password, enabled, authorities, creditAccounts, depositAccounts);
-    }
-
-    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +

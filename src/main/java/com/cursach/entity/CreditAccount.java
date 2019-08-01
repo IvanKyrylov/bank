@@ -124,28 +124,6 @@ public class CreditAccount {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CreditAccount)) return false;
-        CreditAccount that = (CreditAccount) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(num, that.num) &&
-                Objects.equals(creditLimit, that.creditLimit) &&
-                Objects.equals(credit, that.credit) &&
-                Objects.equals(percent, that.percent) &&
-                Objects.equals(interestRate, that.interestRate) &&
-                Objects.equals(createTime, that.createTime) &&
-                Objects.equals(return_time, that.return_time) &&
-                Objects.equals(user, that.user) &&
-                Objects.equals(replenishmentHistories, that.replenishmentHistories);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, num, creditLimit, credit, percent, interestRate, createTime, return_time, user, replenishmentHistories);
-    }
-
-    @Override
     public String toString() {
         return "CreditAccount{" +
                 "id=" + id +

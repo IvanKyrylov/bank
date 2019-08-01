@@ -70,4 +70,15 @@ public class DepositAccount {
     }
 
 
+    @Override
+    public String toString() {
+        return "DepositAccount{" +
+                "id=" + id +
+                ", num=" + num +
+                ", deposit_amount=" + deposit_amount +
+                ", rate=" + rate +
+                ", user=" + user +
+                ", replenishmentHistories=" + replenishmentHistories +
+                '}';
+    }
 }
