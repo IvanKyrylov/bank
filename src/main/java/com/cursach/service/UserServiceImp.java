@@ -1,7 +1,6 @@
 package com.cursach.service;
 
 
-import com.cursach.dao.AuthoritiesDao;
 import com.cursach.dao.UserDao;
 import com.cursach.entity.Authorities;
 import com.cursach.entity.User;
@@ -19,37 +18,32 @@ import java.util.Date;
 import java.util.List;
 
 
-@Service("userDetailService")
-public class UserServiceImp implements UserDetailsService, UserService{
+@Service
+public class UserServiceImp implements UserService{
 
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private AuthoritiesDao authoritiesDao;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findUserByUsername(username);
-        UserBuilder builder = null;
-        if (user != null) {
-
-            builder = org.springframework.security.core.userdetails.User.withUsername(username);
-            builder.disabled(!user.isEnabled());
-            builder.password(user.getPassword());
-            String[] authorities = user.getAuthorities()
-                    .stream().map(Authorities::getAuthority).toArray(String[]::new);
-
-            builder.authorities(authorities);
-        } else {
-            throw new UsernameNotFoundException("User not found.");
-        }
-        return builder.build();
+//        User user = userDao.findUserByUsername(username);
+//        UserBuilder builder = null;
+//        if (user != null) {
+//
+//            builder = org.springframework.security.core.userdetails.User.withUsername(username);
+//            builder.disabled(!user.isEnabled());
+//            builder.password(user.getPassword());
+//            builder.authorities(user.getAuthorities());
+//        } else {
+//            throw new UsernameNotFoundException("User not found.");
+//        }
+        return userDao.findUserByUsername(username);
     }
 
     @Transactional
@@ -61,16 +55,11 @@ public class UserServiceImp implements UserDetailsService, UserService{
     @Transactional
     @Override
     public boolean add(User user) {
-        if (userDao.findUserByUsername(user.getUsername()) == null || !userDao.findUserByUsername(user.getUsername()).getUsername().equals(user.getUsername())) {
+        if (userDao.findUserByUsername(user.getUsername())== null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setCreateTime(new Timestamp(new Date().getTime()));
             user.setEnabled(true);
-            Authorities authorities = new Authorities();
-            authorities.setAuthority("ROLE_USER");
-            authorities.setName(user.getUsername());
-            authorities.setUser(user);
             userDao.add(user);
-            authoritiesDao.add(authorities);
             return true;
         }else return false;
 
