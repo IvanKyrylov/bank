@@ -20,10 +20,14 @@ import java.util.Properties;
 @PropertySource(value = "classpath:db.properties")
 public class HibernateConfig {
 
-    private Environment environment;
+    private final Environment environment;
 
-    @Autowired
-    public void setEnvironment(Environment environment) {this.environment = environment;}
+    public HibernateConfig(Environment environment) {
+        this.environment = environment;
+    }
+
+//    @Autowired
+//    public void setEnvironment(Environment environment) {this.environment = environment;}
 
     @Bean
     public LocalSessionFactoryBean sessionFactoryBean() {

@@ -1,11 +1,13 @@
 package com.cursach.entity;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -129,6 +131,21 @@ public class User implements UserDetails {
 
     public void setDepositAccounts(List<DepositAccount> depositAccounts) {
         this.depositAccounts = depositAccounts;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", createTime=" + createTime +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", authorities=" + authorities +
+                ", creditAccounts=" + creditAccounts +
+                ", depositAccounts=" + depositAccounts +
+                '}';
     }
 }
 
