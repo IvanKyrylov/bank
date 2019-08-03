@@ -9,10 +9,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -25,6 +27,8 @@ public class UserServiceImp implements UserService{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private SenderMailService mailService;
 
     @Transactional
     @Override
@@ -52,15 +56,36 @@ public class UserServiceImp implements UserService{
     @Transactional
     @Override
     public boolean add(User user) {
-        if (userDao.findUserByUsername(user.getUsername())== null) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setCreateTime(new Timestamp(new Date().getTime()));
-            user.setEnabled(true);
-            userDao.add(user);
-            return true;
-        }else return false;
+        if (userDao.findUserByUsername(user.getUsername())!= null) return false;
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setCreateTime(new Timestamp(new Date().getTime()));
+        user.setEnabled(true);
+        user.setActivationCode(UUID.randomUUID().toString());
+        userDao.add(user);
+
+        if (!StringUtils.isEmpty(user.getEmail())) {
+            String message = String.format(
+                    "Hello %s!\n " +
+                            "Welcome to bank. Please visit next link, http://localhost:8080/activate/%s",
+                    user.getUsername(), user.getActivationCode()
+            );
+            mailService.send(user.getEmail(), "Activation code", message);
+        }
+        return true;
 
         //хуйня переделать
+    }
+
+    @Transactional
+    @Override
+    public boolean activationUser(String code) {
+        User user = userDao.findUserByActivationCode(code);
+        if (user == null) {
+            return false;
+        }
+        user.setActivationCode(null);
+        userDao.add(user);
+        return true;
     }
 
     @Transactional

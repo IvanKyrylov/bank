@@ -10,11 +10,8 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
-    private final SessionFactory sessionFactory;
-
-    public UserDaoImp(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Override
     public List<User> allUser() {
@@ -43,12 +40,16 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User findUserByUsername(String username) {
-//        return (User) sessionFactory.getCurrentSession().createQuery("FROM User WHERE username = :paramName").setParameter("paramName", username).uniqueResult();
-        for ( User user : allUser()) {
-            if (user.getUsername().equals(username) ) {
-                return user;
-            }
-        }
-        return null;
+        return (User) sessionFactory.getCurrentSession().createQuery("FROM User WHERE username = :paramName").setParameter("paramName", username).uniqueResult();
+//        List<User> users = allUser();
+//        for ( User user : users) {
+//            if (user.getUsername().equals(username) ) return user;
+//        }
+//        return null;
+    }
+
+    @Override
+    public User findUserByActivationCode(String code) {
+        return (User) sessionFactory.getCurrentSession().createQuery("FROM User WHERE activationCode = :paramName").setParameter("paramName", code).uniqueResult();
     }
 }

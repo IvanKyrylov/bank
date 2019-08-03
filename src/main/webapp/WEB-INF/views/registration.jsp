@@ -31,15 +31,15 @@
     </c:if>
     <p>
         <label for="username">Username</label>
-        <input type="text" id="username" name="username"/>
+        <input type="text" id="username" name="username" placeholder="User name"/>
     </p>
     <p>
         <label for="password">Password</label>
-        <input type="password" id="password" name="password"/>
+        <input type="password" id="password" name="password" placeholder="Password"/>
     </p>
     <p>
         <label for="email">email</label>
-        <input type="email" id="email" name="email">
+        <input type="email" id="email" name="email" placeholder="Email">
     </p>
     <input type="hidden"
            name="${_csrf.parameterName}"

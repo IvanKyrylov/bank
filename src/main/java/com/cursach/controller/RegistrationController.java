@@ -1,37 +1,48 @@
 package com.cursach.controller;
 
 import com.cursach.entity.User;
+import com.cursach.service.SenderMailService;
 import com.cursach.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/registration")
 public class RegistrationController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    public RegistrationController(UserService userService) {
-        this.userService = userService;
-    }
 
-    @GetMapping
+    @GetMapping("/registration")
     public String registration() {
         return "registration";
     }
 
-    @PostMapping
+    @PostMapping("/registration")
     public String addUser(Model model, User user) {
-        if (userService.add(user)) {
+        boolean check = userService.add(user);
+        if (check) {
             return "redirect:/login";
-        }else {
+        } else {
             model.addAttribute("message", "User exists!");
             return "registration";
         }
-
     }
+    @GetMapping("/activate/{code}")
+    public String activationUser(Model model, @PathVariable String code) {
+        boolean isActivated = userService.activationUser(code);
+
+        if (isActivated) {
+            model.addAttribute("message", "User successfully activated!");
+        }else {
+            model.addAttribute("message", "Activation code not found!");
+        }
+        return "login";
+    }
+
 }

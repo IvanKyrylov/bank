@@ -17,6 +17,7 @@
 <h1>Bank</h1>
 <h4>Login Form</h4>
 
+<p>${message}</p>
 
 <c:url value="/login" var="registrationUrl"/>
 <form action="${registrationUrl}" method="post">

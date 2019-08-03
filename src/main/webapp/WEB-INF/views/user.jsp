@@ -14,29 +14,13 @@
 <body>
 
 <h2>User</h2>
-<table>
-    <tr>
-        <th>id</th>
-        <th>username</th>
-        <th>email</th>
-        <th>password</th>
-        <th>create time</th>
-        <th>privilege</th>
-    </tr>
-    <c:forEach var="user" items="${userList}">
-        <tr>
-            <td>${user.id}</td>
-            <td>${user.username}</td>
-            <td>${user.email}</td>
-            <td>${user.password}</td>
-            <td>${user.createTime}</td>
-            <td>
-                <a href="/edit/${user.id}">edit</a>
-                <a href="/delete/${user.id}">delete</a>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
+
+    <form action="/logout" method="post">
+        <input type="hidden"
+               name="${_csrf.parameterName}"
+               value="${_csrf.token}"/>
+        <input value="Logout" type="submit">
+    </form>
 
 <%--<h2>Add</h2>--%>
 <%--<c:url value = "/add" var="add"/>--%>

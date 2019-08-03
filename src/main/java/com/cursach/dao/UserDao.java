@@ -12,4 +12,6 @@ public interface UserDao {
     User getById(int id);
     User findUserByUsername(String username);
 
+
+    User findUserByActivationCode(String code);
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: vanns
@@ -12,14 +13,12 @@
     <title>Bank</title>
 </head>
 <body>
-<h1>Test</h1>
-<h2>${message}</h2>
+<h1>Bank</h1>
+<h2><a href="/login">Login</a></h2>
+<h3><a href="/registration">Registration</a></h3>
+    <p><a href="/users">User</a></p>
 
-<form action="/logout" method="post">
-    <input type="hidden"
-           name="${_csrf.parameterName}"
-           value="${_csrf.token}"/>
-    <input value="Logout" type="submit">
-</form>
+
+
 </body>
 </html>

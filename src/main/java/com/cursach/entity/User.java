@@ -33,6 +33,9 @@ public class User implements UserDetails {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
+    @Column(name = "activation_code")
+    private String activationCode;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Authorities> authorities = new HashSet<>();
 
@@ -108,6 +111,14 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
     @Override
     public Set<Authorities> getAuthorities() {
         return authorities;
@@ -142,6 +153,7 @@ public class User implements UserDetails {
                 ", createTime=" + createTime +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
+                ", activationCode='" + activationCode + '\'' +
                 ", authorities=" + authorities +
                 ", creditAccounts=" + creditAccounts +
                 ", depositAccounts=" + depositAccounts +
