@@ -9,7 +9,7 @@ public interface UserDao {
     void add(User users);
     void delete(User users);
     void edit(User users);
-    User getById(int id);
+    User getById(long id);
     User findUserByUsername(String username);
 
 

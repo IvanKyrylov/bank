@@ -15,6 +15,7 @@ public class CreditAccount {
     @Column(name = "id")
     private Long id;
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "num")
     private Long num;
 

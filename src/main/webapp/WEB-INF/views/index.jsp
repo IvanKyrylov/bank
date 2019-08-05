@@ -16,9 +16,6 @@
 <h1>Bank</h1>
 <h2><a href="/login">Login</a></h2>
 <h3><a href="/registration">Registration</a></h3>
-    <p><a href="/users">User</a></p>
-
-
-
+<p><a href="/user">user</a> </p>
 </body>
 </html>

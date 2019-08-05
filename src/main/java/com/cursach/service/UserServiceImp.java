@@ -102,8 +102,14 @@ public class UserServiceImp implements UserService{
 
     @Transactional
     @Override
-    public User getById(int id) {
+    public User getById(long id) {
         return userDao.getById(id);
     }
 
+    @Transactional
+
+    @Override
+    public User getByUsername(String username) {
+        return userDao.findUserByUsername(username);
+    }
 }

@@ -34,7 +34,7 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public User getById(int id) {
+    public User getById(long id) {
         return sessionFactory.getCurrentSession().get(User.class, id);
     }
 
